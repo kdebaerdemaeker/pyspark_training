@@ -21,6 +21,7 @@ from pyspark.sql import SparkSession, Column, DataFrame
 from pyspark.sql.functions import col, to_date, concat_ws, when
 from pyspark.sql.types import *
 
+from exercises.catalog.catalog import file_to_frame
 
 def hhmm_to_minutes_since_midnight(mycol: Column) -> Column:
     # Using math to do this conversion is _probably_ more efficient than using
@@ -140,8 +141,15 @@ if __name__ == "__main__":
 
     spark = SparkSession.builder.getOrCreate()
     # Extract
-    frame = read_data(resources_dir / "flights", spark)
+    #frame = read_data(resources_dir / "flights" /"2000.csv", spark)
+    frame = file_to_frame("flight2000",spark)
     # Transform
     cleaned_frame = clean(frame)
     # Load
-    cleaned_frame.write.mode("overwrite").parquet(str(target_dir / "cleaned_flights"))
+    cleaned_frame.write.mode("overwrite").parquet(str(target_dir / "cleaned_flights2000"))
+
+    frame = file_to_frame("flight2008", spark)
+    # Transform
+    cleaned_frame = clean(frame)
+    # Load
+    cleaned_frame.write.mode("overwrite").parquet(str(target_dir / "cleaned_flights2008"))

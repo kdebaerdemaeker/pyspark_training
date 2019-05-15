@@ -24,3 +24,4 @@ currencies = spark.createDataFrame(
 for frame in (users, currencies):
     frame.show()  # an action
     frame.printSchema()  # Not an action
+    print('\n')

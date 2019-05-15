@@ -10,6 +10,7 @@ pytest = "*"
 [packages]
 holidays = "*"
 pyspark = "==2.3.3"
+requests = "*"
 
 [requires]
 python_version = "3.7"
